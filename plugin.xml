@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+    <extension point="org.eclipse.ui.startup">
+     <startup class="com.trolltech.qtcppproject.QtStartup"/>
+   </extension>
+
+   <extension
+         id="QtNature"
+         name="Qt Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="com.trolltech.qtcppproject.QtNature">               
+         </run>
+      </runtime>
+      <builder
+            id="com.trolltech.qtcppproject.QtMakefileGenerator">
+      </builder>      
+    </extension>
+    
+    <extension
+         id="QtMakefileGenerator"
+         name="Qt Makefile Generator"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="com.trolltech.qtcppproject.qmake.QtMakefileGenerator">
+         </run>
+      </builder>
+   </extension>
+   
+   <extension
+         id="QtNewProjectWizard"
+         point="org.eclipse.ui.newWizards">
+      <category
+      		id="com.trolltech.qtcppproject.QtCategory"
+      		name="Qt">      
+      </category>
+      <wizard
+            category="com.trolltech.qtcppproject.QtCategory"
+            class="com.trolltech.qtcppproject.wizards.QtConsoleProjectWizard"
+            finalPerspective="com.trolltech.qtcppproject.QtCppPerspective"
+            icon="images/consoleproject.gif"
+            id="com.trolltech.qtcppproject.wizards.QtConsoleProjectWizard"
+            name="Qt Console Project"
+            project="true">
+            <description> 
+              Create a Qt Console application project. 
+          	</description> 
+      </wizard>
+      <wizard
+            category="com.trolltech.qtcppproject.QtCategory"
+            class="com.trolltech.qtcppproject.wizards.QtGuiProjectWizard"
+            finalPerspective="com.trolltech.qtcppproject.QtCppPerspective"
+            icon="images/guiproject.gif"
+            id="com.trolltech.qtcppproject.wizards.QtGuiProjectWizard"
+            name="Qt Gui Project"
+            project="true">
+            <description> 
+              Create a Qt Gui application project. 
+          	</description> 
+      </wizard>
+      <wizard
+            class="com.trolltech.qtcppproject.wizards.QrcFileWizard"
+            category="com.trolltech.qtcppproject.QtCategory"
+            id="com.trolltech.qtcppproject.wizards.QrcFileWizard"
+            name="Qt Resource File"
+            icon="images/resourcefile.gif">
+            <description> 
+              Create a Qt resource file.
+            </description> 
+      </wizard>
+ 	</extension>
+ 	
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.trolltech.qtcppproject.editors.ProEditor"
+            extensions="pro"
+            icon="images/proeditor.gif"
+            id="com.trolltech.qtcppproject.editors.ProEditor"
+            name="Qt Project Editor">
+      </editor>      
+      <editor
+            name="Qt Resource Editor"
+            extensions="qrc"
+            icon="images/resourcefile.gif"
+            class="com.trolltech.qtcppproject.editors.QrcEditor"
+            id="com.trolltech.qtcppproject.editors.QrcEditor">
+      </editor>      
+   </extension>
+ 
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.trolltech.qtcppproject.preferences.QtPreferencePage"
+            id="com.trolltech.qtcppproject.preferences.QtPreferencePage"
+            name="Qt"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            adaptable="true"
+            class="com.trolltech.qtcppproject.properties.QtPropertyPage"
+            id="com.trolltech.qtcppproject.properties.QtPropertyPage"
+            name="Qt Properties"
+            objectClass="org.eclipse.core.resources.IProject">
+			<filter name="nature" value="com.trolltech.qtcppproject.QtNature"></filter>
+	  </page>
+   </extension>
+   <extension
+			point="org.eclipse.ui.importWizards">
+      <category
+            id="com.trolltech.qtcppproject.wizards.ImportQtCategory"
+            name="Qt"/>
+      <wizard
+            category="com.trolltech.qtcppproject.wizards.ImportQtCategory"
+            class="com.trolltech.qtcppproject.wizards.ImportQtWizard"
+            icon="images/emptyproject.gif"
+            id="com.trolltech.qtcppproject.wizards.ImportQtWizard"
+            finalPerspective="com.trolltech.qtcppproject.QtCppPerspective"
+            name="Qt Project">
+         <description>
+            Import a file from the local file system into the workspace.
+         </description>
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="com.trolltech.qtcppproject.QtCategory"
+            class="com.trolltech.qtcppproject.wizards.NewQtClassWizard"
+            finalPerspective="com.trolltech.qtcppproject.QtCppPerspective"
+            hasPages="true"
+            icon="images/qtclass.gif"
+            id="com.trolltech.qtcppproject.wizards.NewQtClassWizard"
+            name="Qt Gui Class"
+            preferredPerspectives="com.trolltech.qtcppproject.QtCppPerspective"/>
+   </extension>
+	<extension
+			id="qtproblem"
+			name="Qt Problem"
+			point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.core.resources.problemmarker"/>
+		<persistent value="true" />
+	</extension>
+	<extension point="org.eclipse.ui.ide.resourceFilters">
+	<filter pattern="*.something" selected="false"></filter>
+	</extension>
+   <extension
+         point="org.eclipse.cdt.ui.CElementFilters">
+      <filter
+            targetId="org.eclipse.cdt.ui.CView"
+            name="Makefiles"
+            description="Makefiles"
+            selected="true"
+            pattern="Makefile*">
+      </filter>
+		<filter
+            targetId="org.eclipse.cdt.ui.CView"
+        class="com.trolltech.qtcppproject.GeneratedFilesFilter"
+        description="Hides moc, ui and qrc generated files"
+        id="com.trolltech.qtcppproject.GeneratedFilesFilter"
+        name="Generated Qt files"
+        enabled="true">
+		</filter>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.trolltech.qtcppproject.perspective.QtCppPerspectiveFactory"
+            icon="images/emptyproject.gif"
+            id="com.trolltech.qtcppproject.QtCppPerspective"
+            name="Qt C++">
+      </perspective>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="com.trolltech.qtcppproject.QtCppPerspective">
+         <perspectiveShortcut
+               id="org.eclipse.debug.ui.DebugPerspective">
+         </perspectiveShortcut>
+         <perspectiveShortcut
+               id="org.eclipse.team.ui.TeamSynchronizingPerspective">
+         </perspectiveShortcut>
+         <actionSet id="org.eclipse.cdt.ui.buildConfigActionSet"/>
+         <actionSet id="org.eclipse.cdt.ui.NavigationActionSet"/>
+         <actionSet id="org.eclipse.cdt.ui.OpenActionSet"/>
+         <actionSet
+               id="org.eclipse.debug.ui.breakpointActionSet">
+         </actionSet>
+         <actionSet
+               id="org.eclipse.debug.ui.launchActionSet">
+         </actionSet>
+         <newWizardShortcut id="com.trolltech.qtcppproject.wizards.NewQtClassWizard"/>
+         <newWizardShortcut id="com.trolltech.qtcppproject.wizards.QtConsoleProjectWizard"/>
+         <newWizardShortcut id="com.trolltech.qtcppproject.wizards.QtGuiProjectWizard"/>
+         <newWizardShortcut id="com.trolltech.qtcppproject.wizards.QrcFileWizard"/>
+      </perspectiveExtension>
+       <perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
+         <perspectiveShortcut id="com.trolltech.qtcppproject.QtCppPerspective"/>
+      </perspectiveExtension>
+      <perspectiveExtension targetID="org.eclipse.debug.ui.DebugPerspective">
+         <perspectiveShortcut id="com.trolltech.qtcppproject.QtCppPerspective"/>
+      </perspectiveExtension>
+   </extension>
+
+<!-- Common navigator extensions -->
+	<extension
+	  point="org.eclipse.ui.navigator.navigatorContent">
+	 <commonWizard
+		type="new"
+	    wizardId="com.trolltech.qtcppproject.wizards.QrcFileWizard">
+		 <enablement>
+			<or>
+				<instanceof value="org.eclipse.cdt.core.model.ICElement" />	
+	            <adapt type="org.eclipse.core.resources.IProject">
+	               <test
+	                     property="org.eclipse.core.resources.projectNature"
+	                     value="com.trolltech.qtcppproject.QtNature"/>
+	            </adapt>
+			</or>
+         </enablement>
+	 </commonWizard>
+	 <commonWizard
+		type="new"
+	    wizardId="com.trolltech.qtcppproject.wizards.NewQtClassWizard">
+		 <enablement>
+			<or>
+				<instanceof value="org.eclipse.cdt.core.model.ICElement" />	
+	            <adapt type="org.eclipse.core.resources.IProject">
+	               <test
+	                     property="org.eclipse.core.resources.projectNature"
+	                     value="com.trolltech.qtcppproject.QtNature"/>
+	            </adapt>
+			</or>
+         </enablement>
+	 </commonWizard>
+	</extension>
+
+   <extension-point id="qmakeEnvironmentModifier" name="QMake Environment Modifier" schema="schema/qmakeEnvironmentModifier.exsd"/>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="com.trolltech.qtcppproject.actionSet"
+            label="Qt Actions"
+            visible="true">
+         <action
+               class="com.trolltech.qtcppproject.actions.RunQMakeAction"
+               definitionId="com.trolltech.qtcppproject.runqmakecommand"
+               id="com.trolltech.qtcppproject.actions.runqmakeaction"
+               label="Run qmake"
+               menubarPath="project/build.ext">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="com.trolltech.qtcppproject.qtcategory"
+            id="com.trolltech.qtcppproject.runqmakecommand"
+            name="Run qmake">
+      </command>
+      <category
+            description="Qt"
+            id="com.trolltech.qtcppproject.qtcategory"
+            name="Qt">
+      </category>
+   </extension>
+
+</plugin>
