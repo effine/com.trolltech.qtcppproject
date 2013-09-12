@@ -43,7 +43,7 @@ public class QtGuiProjectWizard extends QtProjectWizard {
 		modulesPage.setDescription("Select the Qt modules.");
 		addPage(modulesPage);
 
-		// 自定义 向导页
+		/* target platform wizardpage */
 		targetPage = new QtTargetWizardPage(
 				"com.trolltech.qtcppproject.QtTargetPage");
 		targetPage.setTitle(title);
@@ -85,9 +85,6 @@ public class QtGuiProjectWizard extends QtProjectWizard {
 		String srcFile = filesPage.getSourceFileName();
 		String uiFile = filesPage.getUIFileName();
 
-		/*
-		 * 自定义目标平台
-		 */
 		String targetPlatName = targetPage.getChildTarget();
 		replaceMap.put("%TargetPlatform%", targetPlatName);
 

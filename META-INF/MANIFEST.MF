@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: arno
+Bundle-Name: Qt Eclipse Integration
 Bundle-SymbolicName: com.trolltech.qtcppproject;singleton:=true
 Bundle-Version: 1.6.1
 Bundle-Activator: com.trolltech.qtcppproject.QtProjectPlugin
-Bundle-Vendor: TROLLTECH
+Bundle-Vendor: verphen
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.trolltech.qtcppproject,
  com.trolltech.qtcppproject.qmake

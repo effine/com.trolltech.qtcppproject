@@ -48,7 +48,8 @@ public class QtModulesWizardPage extends WizardPage {
 		selectedModules = 0;
 		for (int i = 0; i < NUM_MODULES; i++)
 			if (buttons[i].getSelection())
-				selectedModules |= buttonConstants[i]; // Ê¹ÓÃ°´Î» Óë ÔËËãµÄ×÷ÓÃÊÇÊ²Ã´°¡£¿
+				selectedModules |= buttonConstants[i]; // Ê¹ï¿½Ã°ï¿½Î» ï¿½ï¿½
+														// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²Ã´ï¿½ï¿½ï¿½ï¿½
 		return selectedModules;
 	}
 
@@ -78,33 +79,33 @@ public class QtModulesWizardPage extends WizardPage {
 		moduleGroup.setText("Qt Modules");
 
 		for (int i = 0; i < NUM_MODULES; i++) {
-			this.buttons[i] = new Button(moduleGroup, 32);
-			this.buttons[i].setText(this.visibleStrings[i]);
-			this.buttons[i].setSelection(false);
+			buttons[i] = new Button(moduleGroup, 32);
+			buttons[i].setText(visibleStrings[i]);
+			buttons[i].setSelection(false);
 		}
 
-		this.hasInitialized = true;
+		hasInitialized = true;
 		refreshSelectedModules();
-		enableModules(this.requiredModules, false);
+		enableModules(requiredModules, false);
 
 		setControl(mainComposite);
 		setPageComplete(true);
 	}
 
 	private void refreshSelectedModules() {
-		if (!this.hasInitialized)
+		if (!hasInitialized)
 			return;
-		int modules = this.selectedModules | this.requiredModules;
+		int modules = selectedModules | requiredModules;
 		for (int i = 0; i < NUM_MODULES; i++)
-			if ((modules & this.buttonConstants[i]) != 0)
-				this.buttons[i].setSelection(true);
+			if ((modules & buttonConstants[i]) != 0)
+				buttons[i].setSelection(true);
 	}
 
 	private void enableModules(int modules, boolean enabled) {
-		if (!this.hasInitialized)
+		if (!hasInitialized)
 			return;
 		for (int i = 0; i < NUM_MODULES; i++)
-			if ((modules & this.buttonConstants[i]) != 0)
-				this.buttons[i].setEnabled(enabled);
+			if ((modules & buttonConstants[i]) != 0)
+				buttons[i].setEnabled(enabled);
 	}
 }

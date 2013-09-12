@@ -25,6 +25,7 @@ public class FilesWizardPage extends WizardPage {
 		setTitle("Files");
 	}
 
+	/* check project nmae */
 	public static String toValidClassName(String name) {
 		String validName = "";
 
@@ -49,7 +50,7 @@ public class FilesWizardPage extends WizardPage {
 	}
 
 	public void setClassName(String name) {
-		if (this.classLE != null) {
+		if (classLE != null) {
 			String validName = toValidClassName(name);
 			classLE.setText(validName);
 			updateLEs(validName);
@@ -61,19 +62,19 @@ public class FilesWizardPage extends WizardPage {
 	}
 
 	public String getSourceFileName() {
-		return this.cppLE.getText();
+		return cppLE.getText();
 	}
 
 	public String getHeaderFileName() {
-		return this.hLE.getText();
+		return hLE.getText();
 	}
 
 	public String getUIFileName() {
-		return this.uiLE.getText();
+		return uiLE.getText();
 	}
 
 	public String getUiClassName() {
-		return this.uiType.getText();
+		return uiType.getText();
 	}
 
 	public void createControl(Composite parent) {
@@ -86,51 +87,49 @@ public class FilesWizardPage extends WizardPage {
 		Label cl = new Label(mainComposite, 8);
 		cl.setText("Class Name:");
 
-		this.classLE = new Text(mainComposite, 2052);
-		this.classLE.setLayoutData(new GridData(768));
+		classLE = new Text(mainComposite, 2052);
+		classLE.setLayoutData(new GridData(768));
 
 		Label cppl = new Label(mainComposite, 8);
 		cppl.setText("Source Filename:");
 
-		this.cppLE = new Text(mainComposite, 2052);
-		this.cppLE.setLayoutData(new GridData(768));
+		cppLE = new Text(mainComposite, 2052);
+		cppLE.setLayoutData(new GridData(768));
 
-		this.cppLE.addKeyListener(new FileTextListener());
+		cppLE.addKeyListener(new FileTextListener());
 
 		Label hl = new Label(mainComposite, 8);
 		hl.setText("Header Filename:");
 
-		this.hLE = new Text(mainComposite, 2052);
-		this.hLE.setLayoutData(new GridData(768));
+		hLE = new Text(mainComposite, 2052);
+		hLE.setLayoutData(new GridData(768));
 
-		this.hLE.addKeyListener(new FileTextListener());
+		hLE.addKeyListener(new FileTextListener());
 
 		Label uil = new Label(mainComposite, 8);
 		uil.setText("UI Filename:");
 
-		this.uiLE = new Text(mainComposite, 2052);
-		this.uiLE.setLayoutData(new GridData(768));
+		uiLE = new Text(mainComposite, 2052);
+		uiLE.setLayoutData(new GridData(768));
 
-		this.uiLE.addKeyListener(new FileTextListener());
+		uiLE.addKeyListener(new FileTextListener());
 
 		Label uiTypeLable = new Label(mainComposite, 8);
 		uiTypeLable.setText("UI Type:");
 
-		this.uiType = new Combo(mainComposite, 8);
-		this.uiType.setLayoutData(new GridData(768));
+		uiType = new Combo(mainComposite, 8);
+		uiType.setLayoutData(new GridData(768));
 
-		this.uiType
-				.setItems(new String[] { "QWidget", "QMainWindow", "QDialog" });
-		this.uiType.select(0);
+		uiType.setItems(new String[] { "QWidget", "QMainWindow", "QDialog" });
+		uiType.select(0);
 
-		this.classLE.addKeyListener(new KeyListener() {
+		classLE.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) {
 			}
 
 			public void keyReleased(KeyEvent e) {
-				FilesWizardPage.this.updateLEs(FilesWizardPage.this.classLE
-						.getText());
-				FilesWizardPage.this.checkValidPage();
+				updateLEs(classLE.getText());
+				checkValidPage();
 			}
 		});
 		setControl(mainComposite);
@@ -138,15 +137,15 @@ public class FilesWizardPage extends WizardPage {
 	}
 
 	private void updateLEs(String text) {
-		if (!this.filechanged) {
-			this.cppLE.setText(text.toLowerCase(Locale.US) + ".cpp");
-			this.hLE.setText(text.toLowerCase(Locale.US) + ".h");
-			this.uiLE.setText(text.toLowerCase(Locale.US) + ".ui");
+		if (!filechanged) {
+			cppLE.setText(text.toLowerCase(Locale.US) + ".cpp");
+			hLE.setText(text.toLowerCase(Locale.US) + ".h");
+			uiLE.setText(text.toLowerCase(Locale.US) + ".ui");
 		}
 	}
 
 	private void checkValidPage() {
-		Text[] text = { this.classLE, this.cppLE, this.hLE, this.uiLE };
+		Text[] text = { classLE, cppLE, hLE, uiLE };
 		for (int i = 0; i < text.length; i++) {
 			String string = text[i].getText().trim();
 			if ((string.length() > 0) && (string.indexOf(" \\/") > -1)) {
@@ -165,8 +164,8 @@ public class FilesWizardPage extends WizardPage {
 		}
 
 		public void keyReleased(KeyEvent e) {
-			FilesWizardPage.this.filechanged = true;
-			FilesWizardPage.this.checkValidPage();
+			filechanged = true;
+			checkValidPage();
 		}
 	}
 
@@ -178,7 +177,7 @@ public class FilesWizardPage extends WizardPage {
 		}
 
 		public void keyReleased(KeyEvent e) {
-			FilesWizardPage.this.checkValidPage();
+			checkValidPage();
 		}
 	}
 }
